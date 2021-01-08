@@ -101,7 +101,8 @@
                             </Collection>
                         </PropertyValue>
                     </Record>
-                </Annotation>                                                           
+                </Annotation>          
+                                                                 
                 <Annotation Term="UI.SelectionVariant" Qualifier="SVCorrection">
                     <Record>
                         <PropertyValue Property="Text" String="{@i18n>correction}">
