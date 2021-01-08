@@ -1,0 +1,228 @@
+{
+    "_version": "1.29.0",
+    "sap.app": {
+        "id": "cust.ca.devman.zcadevman",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "tags": {
+            "keywords": []
+        },
+        "resources": "resources.json",
+        "dataSources": {
+            "mainService": {
+                "uri": "/sap/opu/odata/sap/ZUI_DEV_O2/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "ZUI_DEV_O2_VAN",
+                        "annotation"
+                    ],
+                    "localUri": "localService/metadata.xml"
+                }
+            },
+            "ZUI_DEV_O2_VAN": {
+                "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='ZUI_DEV_O2_VAN',Version='0001')/$value/",
+                "type": "ODataAnnotation",
+                "settings": {
+                    "localUri": "localService/ZUI_DEV_O2_VAN.xml"
+                }
+            },
+            "annotation": {
+                "type": "ODataAnnotation",
+                "uri": "annotations/annotation.xml",
+                "settings": {
+                    "localUri": "annotations/annotation.xml"
+                }
+            }
+        },
+        "offline": false,
+        "sourceTemplate": {
+            "id": "ui5template.smartTemplate",
+            "version": "1.40.12"
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        },
+        "supportedThemes": [
+            "sap_hcb",
+            "sap_belize"
+        ]
+    },
+    "sap.ui5": {
+        "resources": {
+            "js": [],
+            "css": []
+        },
+        "dependencies": {
+            "minUI5Version": "1.65.0",
+            "libs": {
+                "sap.ui.core": {},
+                "sap.ui.generic.app": {},
+                "sap.suite.ui.generic.template": {},
+                "sap.m": {
+                    "lazy": true
+                }
+            },
+            "components": {}
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            },
+            "i18n|sap.suite.ui.generic.template.ListReport|ZC_Dev": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/ListReport/ZC_Dev/i18n.properties"
+            },
+            "i18n|sap.suite.ui.generic.template.ObjectPage|ZC_Dev": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/ObjectPage/ZC_Dev/i18n.properties"
+            },
+            "i18n|sap.suite.ui.generic.template.ObjectPage|ZC_DevComment": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/ObjectPage/ZC_DevComment/i18n.properties"
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false
+                }
+            }
+        },
+        "extends": {
+            "extensions": {}
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        }
+    },
+    "sap.ui.generic.app": {
+        "_version": "1.3.0",
+        "pages": {
+            "ListReport|ZC_Dev": {
+                "entitySet": "ZC_Dev",
+                "component": {
+                    "name": "sap.suite.ui.generic.template.ListReport",
+                    "list": true,
+                    "settings": {
+                        "multiSelect": true,
+                        "variantManagementHidden": true,
+                        "smartVariantManagement": true,
+                        "isWorklist": true,
+                        "filterSettings": {
+                            "dateSettings": {
+                                "useDateRange": true
+                            }
+                        },
+                        "quickVariantSelectionX": {
+                            "enableAutoBinding": true,
+                            "showCounts": true,
+                            "variants": {
+                                "Spec": {
+                                    "key": "tabSpec",
+                                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#SVSpec",
+                                    "tableSettings": {}
+                                },
+                                "SpecReady": {
+                                    "key": "tabSpecReady",
+                                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#SVSpecReady",
+                                    "tableSettings": {}
+                                }, 
+                                "Developmnt": {
+                                    "key": "tabDevelopmnt",
+                                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#SVDevelopmnt",
+                                    "tableSettings": {}
+                                },
+                                "Test": {
+                                    "key": "tabTest",
+                                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#SVTest",
+                                    "tableSettings": {}
+                                },                                                                                                                                                                                                                                                                                                                                                                                                
+                                "Correction": {
+                                    "key": "tabCorrection",
+                                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#SVCorrection",
+                                    "tableSettings": {}
+                                },
+                                "Done": {
+                                    "key": "tabDone",
+                                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#SVDone",
+                                    "tableSettings": {}
+                                },
+                                "Rejected": {
+                                    "key": "tabRejected",
+                                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#SVRejected",
+                                    "tableSettings": {}
+                                }                                                               
+                            }
+                        }
+                    }
+                },
+                "pages": {
+                    "ObjectPage|ZC_Dev": {
+                        "entitySet": "ZC_Dev",
+                        "component": {
+                            "name": "sap.suite.ui.generic.template.ObjectPage",
+                            "settings": {
+                                "gridTable": true,
+                                "sections": {
+                                    "to_Comment::com.sap.vocabularies.UI.v1.LineItem": {
+                                        "condensedTableLayout": false
+                                    }
+                                }
+                            }
+                        },
+                        "pages": {
+                            "ObjectPage|to_Comment": {
+                                "navigationProperty": "to_Comment",
+                                "entitySet": "ZC_DevComment",
+                                "component": {
+                                    "name": "sap.suite.ui.generic.template.ObjectPage"
+                                }
+                            },
+                            "ObjectPage|ZC_DevComment": {
+                                "component": {
+                                    "name": "sap.suite.ui.generic.template.ObjectPage"
+                                },
+                                "entitySet": "ZC_DevComment",
+                                "navigationProperty": "to_Comment"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "transactional"
+    },
+    "sap.platform.hcp": {
+        "uri": ""
+    }
+}

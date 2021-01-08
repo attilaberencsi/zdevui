@@ -1,0 +1,27 @@
+specVersion: '1.0'
+metadata:
+  name: 'zcadevman'
+type: application
+ui5Theme: sap_fiori_3_dark
+server:
+  customMiddleware:
+  - name: fiori-tools-proxy
+    afterMiddleware: compression
+    configuration:
+      ignoreCertError: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
+      backend:
+      - path: /sap
+        url: https://f579c30d-e77d-4a9e-91c7-e216b244b723.abap.us10.hana.ondemand.com
+        scp: true
+        destination: abap-cloud-sapmagic
+      ui5:
+        path: 
+        - /resources
+        - /test-resources
+        url: https://ui5.sap.com
+        version:  # The UI5 version, for instance, 1.78.1. Empty means latest version
+  - name: fiori-tools-appreload
+    afterMiddleware: compression
+    configuration:
+     port: 35729
+     path: webapp
