@@ -115,7 +115,40 @@
             }
         },
         "extends": {
-            "extensions": {}
+            "extensions": {
+                "sap.ui.viewExtensions": {
+                    "sap.suite.ui.generic.template.ObjectPage.view.Details": {
+                        "ReplaceFacet|ZC_Dev|Comments": {
+                            "type": "XML",
+                            "className": "sap.ui.core.Fragment",
+                            "fragmentName": "cust.ca.devman.zcadevman.ext.fragment.Comments",
+                            "sap.ui.generic.app": {
+                                "title": "Comments"
+                            }
+                        }
+                    }
+                },
+                "sap.ui.controllerExtensions": {
+                    "sap.suite.ui.generic.template.ObjectPage.view.Details": {
+                        "controllerName": "cust.ca.devman.zcadevman.ext.controller.ObjectPageExt",
+                        "sap.ui.generic.app": {
+                            "ZC_Dev": {
+                                "EntitySet": "ZC_Dev",
+                                "Header": {
+                                    "Actions": {
+                                        "addComment": {
+                                            "id": "addCommentButton",
+                                            "text": "Add Comment",
+                                            "press": "onAddCommentZC_Dev",
+                                            "requiresSelection": false
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         },
         "contentDensities": {
             "compact": true,
@@ -153,7 +186,7 @@
                                     "key": "tabSpecReady",
                                     "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#SVSpecReady",
                                     "tableSettings": {}
-                                }, 
+                                },
                                 "Developmnt": {
                                     "key": "tabDevelopmnt",
                                     "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#SVDevelopmnt",
@@ -163,7 +196,7 @@
                                     "key": "tabTest",
                                     "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#SVTest",
                                     "tableSettings": {}
-                                },                                                                                                                                                                                                                                                                                                                                                                                                
+                                },
                                 "Correction": {
                                     "key": "tabCorrection",
                                     "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#SVCorrection",
@@ -178,7 +211,7 @@
                                     "key": "tabRejected",
                                     "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#SVRejected",
                                     "tableSettings": {}
-                                }                                                               
+                                }
                             }
                         }
                     }
