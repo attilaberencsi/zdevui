@@ -52,6 +52,15 @@
                 <Property Name="LastChangedByUserDescription" Type="Edm.String" MaxLength="80" sap:label="Draft Last Changed By (Description)"/>
                 <Property Name="InProcessByUserDescription" Type="Edm.String" MaxLength="80" sap:label="Draft In Process By (Description)"/>
             </EntityType>
+            <EntityType Name="I_UnitOfMeasureStdVHType" sap:label="Unit of Measure" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="UnitOfMeasure"/>
+                </Key>
+                <Property Name="UnitOfMeasure" Type="Edm.String" Nullable="false" MaxLength="3" sap:text="UnitOfMeasureLongName" sap:label="Unit of Measure" sap:semantics="unit-of-measure"/>
+                <Property Name="UnitOfMeasureLongName" Type="Edm.String" MaxLength="30" sap:label="UoM Text" sap:quickinfo="Unit of Measurement Text (Maximum 30 Characters)"/>
+                <Property Name="UnitOfMeasureDimension" Type="Edm.String" MaxLength="6" sap:display-format="UpperCase" sap:text="UnitOfMeasureDimensionName" sap:label="Dimension" sap:quickinfo="Dimension key"/>
+                <Property Name="UnitOfMeasureDimensionName" Type="Edm.String" MaxLength="20" sap:label="Dimension text"/>
+            </EntityType>
             <EntityType Name="ZC_DevType" sap:label="Development" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="DevUuid"/>
@@ -62,16 +71,17 @@
                 <Property Name="Prepare_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Delete_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Update_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="to_Booking_oc" Type="Edm.Boolean" sap:label="Dynamic CbA-Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="to_Comment_oc" Type="Edm.Boolean" sap:label="Dynamic CbA-Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="DevUuid" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="DevId" Type="Edm.String" MaxLength="8" sap:display-format="NonNegative" sap:label="ID" sap:quickinfo="Development ID" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="UserDepartment" Type="Edm.String" MaxLength="20"/>
                 <Property Name="PlannedStart" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Planned Start" sap:quickinfo="Planned Start Date"/>
                 <Property Name="PlannedEnd" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Planned End" sap:quickinfo="Planned End Date"/>
-                <Property Name="TimePlanned" Type="Edm.Decimal" Precision="6" Scale="2"/>
-                <Property Name="TimeSpent" Type="Edm.Decimal" Precision="6" Scale="2"/>
-                <Property Name="TimeLeft" Type="Edm.Decimal" Precision="6" Scale="2"/>
-                <Property Name="TimeUnit" Type="Edm.String" MaxLength="3" sap:label="Unit" sap:creatable="false" sap:updatable="false" sap:semantics="unit-of-measure"/>
+                <Property Name="TimePlanned" Type="Edm.Decimal" Precision="6" Scale="2" sap:label="Planned"/>
+                <Property Name="TimeSpent" Type="Edm.Decimal" Precision="6" Scale="2" sap:label="Spent" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TimeLeft" Type="Edm.Decimal" Precision="6" Scale="2" sap:label="Left"/>
+                <Property Name="TimeUnit" Type="Edm.String" MaxLength="3" sap:label="Unit" sap:creatable="false" sap:updatable="false" sap:value-list="standard" sap:semantics="unit-of-measure"/>
                 <Property Name="ShortDescription" Type="Edm.String" MaxLength="60" sap:label="Description" sap:quickinfo="Short description"/>
                 <Property Name="LongDescription" Type="Edm.String" MaxLength="2000" sap:label="Long Description"/>
                 <Property Name="OverallStatus" Type="Edm.String" MaxLength="10" sap:label="Status" sap:quickinfo="Development Status"/>
@@ -87,7 +97,35 @@
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" sap:display-format="UpperCase" sap:label="Is active" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
                 <NavigationProperty Name="DraftAdministrativeData" Relationship="cds_zui_dev.assoc_2379842963CA9BC51A898BE300B05942" FromRole="FromRole_assoc_2379842963CA9BC51A898BE300B05942" ToRole="ToRole_assoc_2379842963CA9BC51A898BE300B05942"/>
                 <NavigationProperty Name="SiblingEntity" Relationship="cds_zui_dev.assoc_1D68E58AAE408D0C800B8F5FB7B58FA6" FromRole="FromRole_assoc_1D68E58AAE408D0C800B8F5FB7B58FA6" ToRole="ToRole_assoc_1D68E58AAE408D0C800B8F5FB7B58FA6"/>
+                <NavigationProperty Name="to_Booking" Relationship="cds_zui_dev.assoc_3447DEB57B5CB274A780075900A82FFB" FromRole="FromRole_assoc_3447DEB57B5CB274A780075900A82FFB" ToRole="ToRole_assoc_3447DEB57B5CB274A780075900A82FFB"/>
                 <NavigationProperty Name="to_Comment" Relationship="cds_zui_dev.assoc_CBAEE968CA329988A832E86205348FD7" FromRole="FromRole_assoc_CBAEE968CA329988A832E86205348FD7" ToRole="ToRole_assoc_CBAEE968CA329988A832E86205348FD7"/>
+            </EntityType>
+            <EntityType Name="ZC_DevBookingType" sap:label="Time Spent on Development" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="BookingUuid"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="Delete_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Update_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BookingUuid" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="DevUuid" Type="Edm.Guid" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="BookCount" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="Number" sap:quickinfo="Comment Count" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TimeSpent" Type="Edm.Decimal" Precision="6" Scale="2"/>
+                <Property Name="TimeUnit" Type="Edm.String" MaxLength="3" sap:label="Unit" sap:value-list="standard" sap:semantics="unit-of-measure"/>
+                <Property Name="BookingText" Type="Edm.String" MaxLength="512" sap:label="Comment"/>
+                <Property Name="CreatedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="User Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTimeOffset" Precision="7" sap:label="Time Stamp" sap:quickinfo="UTC Time Stamp in Long Form (YYYYMMDDhhmmssmmmuuun)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="User Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangedAt" Type="Edm.DateTimeOffset" Precision="7" sap:label="Time Stamp" sap:quickinfo="UTC Time Stamp in Long Form (YYYYMMDDhhmmssmmmuuun)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LocalLastChangedAt" Type="Edm.DateTimeOffset" Precision="7" sap:label="Time Stamp" sap:quickinfo="UTC Time Stamp in Long Form (YYYYMMDDhhmmssmmmuuun)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Has Draft" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="DraftEntityCreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Created On" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="DraftEntityLastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Last Changed On" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Has active" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" sap:display-format="UpperCase" sap:label="Is active" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Relationship="cds_zui_dev.assoc_54D1E66E51C9DF72E937008C41BF065E" FromRole="FromRole_assoc_54D1E66E51C9DF72E937008C41BF065E" ToRole="ToRole_assoc_54D1E66E51C9DF72E937008C41BF065E"/>
+                <NavigationProperty Name="SiblingEntity" Relationship="cds_zui_dev.assoc_AFB29A2D690B418BCB2DDF00579FB81A" FromRole="FromRole_assoc_AFB29A2D690B418BCB2DDF00579FB81A" ToRole="ToRole_assoc_AFB29A2D690B418BCB2DDF00579FB81A"/>
+                <NavigationProperty Name="to_Development" Relationship="cds_zui_dev.assoc_399C2A7DD362117129534886DD675DBE" FromRole="FromRole_assoc_399C2A7DD362117129534886DD675DBE" ToRole="ToRole_assoc_399C2A7DD362117129534886DD675DBE"/>
             </EntityType>
             <EntityType Name="ZC_DevCommentType" sap:label="Comments on Development" sap:content-version="1">
                 <Key>
@@ -117,9 +155,35 @@
             <ComplexType Name="DummyFunctionImportResult">
                 <Property Name="IsInvalid" Type="Edm.Boolean" sap:label="TRUE"/>
             </ComplexType>
+            <Association Name="assoc_54D1E66E51C9DF72E937008C41BF065E" sap:content-version="1">
+                <End Type="cds_zui_dev.ZC_DevBookingType" Multiplicity="1" Role="FromRole_assoc_54D1E66E51C9DF72E937008C41BF065E"/>
+                <End Type="cds_zui_dev.I_DraftAdministrativeDataType" Multiplicity="0..1" Role="ToRole_assoc_54D1E66E51C9DF72E937008C41BF065E"/>
+            </Association>
+            <Association Name="assoc_AFB29A2D690B418BCB2DDF00579FB81A" sap:content-version="1">
+                <End Type="cds_zui_dev.ZC_DevBookingType" Multiplicity="1" Role="FromRole_assoc_AFB29A2D690B418BCB2DDF00579FB81A"/>
+                <End Type="cds_zui_dev.ZC_DevBookingType" Multiplicity="0..1" Role="ToRole_assoc_AFB29A2D690B418BCB2DDF00579FB81A"/>
+            </Association>
+            <Association Name="assoc_399C2A7DD362117129534886DD675DBE" sap:content-version="1">
+                <End Type="cds_zui_dev.ZC_DevBookingType" Multiplicity="1" Role="FromRole_assoc_399C2A7DD362117129534886DD675DBE"/>
+                <End Type="cds_zui_dev.ZC_DevType" Multiplicity="1" Role="ToRole_assoc_399C2A7DD362117129534886DD675DBE"/>
+            </Association>
             <Association Name="assoc_1D68E58AAE408D0C800B8F5FB7B58FA6" sap:content-version="1">
                 <End Type="cds_zui_dev.ZC_DevType" Multiplicity="1" Role="FromRole_assoc_1D68E58AAE408D0C800B8F5FB7B58FA6"/>
                 <End Type="cds_zui_dev.ZC_DevType" Multiplicity="0..1" Role="ToRole_assoc_1D68E58AAE408D0C800B8F5FB7B58FA6"/>
+            </Association>
+            <Association Name="assoc_3447DEB57B5CB274A780075900A82FFB" sap:content-version="1">
+                <End Type="cds_zui_dev.ZC_DevType" Multiplicity="1" Role="FromRole_assoc_3447DEB57B5CB274A780075900A82FFB">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Type="cds_zui_dev.ZC_DevBookingType" Multiplicity="*" Role="ToRole_assoc_3447DEB57B5CB274A780075900A82FFB"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assoc_3447DEB57B5CB274A780075900A82FFB">
+                        <PropertyRef Name="DevUuid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assoc_3447DEB57B5CB274A780075900A82FFB">
+                        <PropertyRef Name="DevUuid"/>
+                    </Dependent>
+                </ReferentialConstraint>
             </Association>
             <Association Name="assoc_CBAEE968CA329988A832E86205348FD7" sap:content-version="1">
                 <End Type="cds_zui_dev.ZC_DevType" Multiplicity="1" Role="FromRole_assoc_CBAEE968CA329988A832E86205348FD7">
@@ -153,7 +217,9 @@
             </Association>
             <EntityContainer Name="cds_zui_dev_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
                 <EntitySet Name="I_DraftAdministrativeData" EntityType="cds_zui_dev.I_DraftAdministrativeDataType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="I_UnitOfMeasureStdVH" EntityType="cds_zui_dev.I_UnitOfMeasureStdVHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
                 <EntitySet Name="ZC_Dev" EntityType="cds_zui_dev.ZC_DevType" sap:searchable="true" sap:content-version="1" sap:deletable-path="Delete_mc" sap:updatable-path="Update_mc"/>
+                <EntitySet Name="ZC_DevBooking" EntityType="cds_zui_dev.ZC_DevBookingType" sap:content-version="1" sap:deletable-path="Delete_mc" sap:updatable-path="Update_mc"/>
                 <EntitySet Name="ZC_DevComment" EntityType="cds_zui_dev.ZC_DevCommentType" sap:searchable="true" sap:content-version="1" sap:deletable-path="Delete_mc" sap:updatable-path="Update_mc"/>
                 <AssociationSet Name="assoc_2379842963CA9BC51A898BE300B05942" Association="cds_zui_dev.assoc_2379842963CA9BC51A898BE300B05942" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="ZC_Dev" Role="FromRole_assoc_2379842963CA9BC51A898BE300B05942"/>
@@ -163,9 +229,21 @@
                     <End EntitySet="ZC_DevComment" Role="FromRole_assoc_EEAB753429830E536CE24D5191464D01"/>
                     <End EntitySet="ZC_DevComment" Role="ToRole_assoc_EEAB753429830E536CE24D5191464D01"/>
                 </AssociationSet>
+                <AssociationSet Name="assoc_AFB29A2D690B418BCB2DDF00579FB81A" Association="cds_zui_dev.assoc_AFB29A2D690B418BCB2DDF00579FB81A" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_DevBooking" Role="FromRole_assoc_AFB29A2D690B418BCB2DDF00579FB81A"/>
+                    <End EntitySet="ZC_DevBooking" Role="ToRole_assoc_AFB29A2D690B418BCB2DDF00579FB81A"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_54D1E66E51C9DF72E937008C41BF065E" Association="cds_zui_dev.assoc_54D1E66E51C9DF72E937008C41BF065E" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_DevBooking" Role="FromRole_assoc_54D1E66E51C9DF72E937008C41BF065E"/>
+                    <End EntitySet="I_DraftAdministrativeData" Role="ToRole_assoc_54D1E66E51C9DF72E937008C41BF065E"/>
+                </AssociationSet>
                 <AssociationSet Name="assoc_95B9AD7A9E2B5E37AEF2916C550A2A99" Association="cds_zui_dev.assoc_95B9AD7A9E2B5E37AEF2916C550A2A99" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="ZC_DevComment" Role="FromRole_assoc_95B9AD7A9E2B5E37AEF2916C550A2A99"/>
                     <End EntitySet="ZC_Dev" Role="ToRole_assoc_95B9AD7A9E2B5E37AEF2916C550A2A99"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_3447DEB57B5CB274A780075900A82FFB" Association="cds_zui_dev.assoc_3447DEB57B5CB274A780075900A82FFB" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_Dev" Role="FromRole_assoc_3447DEB57B5CB274A780075900A82FFB"/>
+                    <End EntitySet="ZC_DevBooking" Role="ToRole_assoc_3447DEB57B5CB274A780075900A82FFB"/>
                 </AssociationSet>
                 <AssociationSet Name="assoc_AD0E4657754FE532032B75FCA79BFE48" Association="cds_zui_dev.assoc_AD0E4657754FE532032B75FCA79BFE48" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="ZC_DevComment" Role="FromRole_assoc_AD0E4657754FE532032B75FCA79BFE48"/>
@@ -174,6 +252,10 @@
                 <AssociationSet Name="assoc_CBAEE968CA329988A832E86205348FD7" Association="cds_zui_dev.assoc_CBAEE968CA329988A832E86205348FD7" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="ZC_Dev" Role="FromRole_assoc_CBAEE968CA329988A832E86205348FD7"/>
                     <End EntitySet="ZC_DevComment" Role="ToRole_assoc_CBAEE968CA329988A832E86205348FD7"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_399C2A7DD362117129534886DD675DBE" Association="cds_zui_dev.assoc_399C2A7DD362117129534886DD675DBE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_DevBooking" Role="FromRole_assoc_399C2A7DD362117129534886DD675DBE"/>
+                    <End EntitySet="ZC_Dev" Role="ToRole_assoc_399C2A7DD362117129534886DD675DBE"/>
                 </AssociationSet>
                 <AssociationSet Name="assoc_1D68E58AAE408D0C800B8F5FB7B58FA6" Association="cds_zui_dev.assoc_1D68E58AAE408D0C800B8F5FB7B58FA6" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="ZC_Dev" Role="FromRole_assoc_1D68E58AAE408D0C800B8F5FB7B58FA6"/>
@@ -188,6 +270,7 @@
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In"/>
                     <Parameter Name="TimeUnit" Type="Edm.String" Mode="In" MaxLength="3" Nullable="true" sap:value-list="standard"/>
                     <Parameter Name="TimeSpent" Type="Edm.Decimal" Mode="In" Precision="6" Scale="2" Nullable="true"/>
+                    <Parameter Name="BookingText" Type="Edm.String" Mode="In" Nullable="true"/>
                 </FunctionImport>
                 <FunctionImport Name="ZC_DevDiscard" ReturnType="cds_zui_dev.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="cds_zui_dev.ZC_DevType">
                     <Parameter Name="DevUuid" Type="Edm.Guid" Mode="In"/>
@@ -221,6 +304,7 @@
                                 <PropertyPath>Prepare_ac</PropertyPath>
                                 <PropertyPath>Delete_mc</PropertyPath>
                                 <PropertyPath>Update_mc</PropertyPath>
+                                <PropertyPath>to_Booking_oc</PropertyPath>
                                 <PropertyPath>to_Comment_oc</PropertyPath>
                             </Collection>
                         </PropertyValue>
@@ -238,6 +322,14 @@
                     <Record>
                         <PropertyValue Property="RestrictedProperties">
                             <Collection>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_Booking"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Path="to_Booking_oc"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
                                 <Record>
                                     <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_Comment"/>
                                     <PropertyValue Property="InsertRestrictions">
@@ -259,8 +351,48 @@
                                 <PropertyPath>Prepare_ac</PropertyPath>
                                 <PropertyPath>Delete_mc</PropertyPath>
                                 <PropertyPath>Update_mc</PropertyPath>
+                                <PropertyPath>to_Booking_oc</PropertyPath>
                                 <PropertyPath>to_Comment_oc</PropertyPath>
                                 <PropertyPath>LongDescription</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="cds_zui_dev.cds_zui_dev_Entities/ZC_DevBooking" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.DraftNode">
+                    <Record/>
+                </Annotation>
+                <Annotation Term="Common.DraftActivationVia">
+                    <Collection>
+                        <String>cds_zui_dev.cds_zui_dev_Entities/ZC_Dev</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>Delete_mc</PropertyPath>
+                                <PropertyPath>Update_mc</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="FilterExpressionRestrictions">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="BookingText"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>Delete_mc</PropertyPath>
+                                <PropertyPath>Update_mc</PropertyPath>
+                                <PropertyPath>BookingText</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -305,6 +437,84 @@
                     </Record>
                 </Annotation>
             </Annotations>
+            <Annotations Target="cds_zui_dev.ZC_DevType/TimeUnit" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String=""/>
+                        <PropertyValue Property="CollectionPath" String="I_UnitOfMeasureStdVH"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="TimeUnit"/>
+                                    <PropertyValue Property="ValueListProperty" String="UnitOfMeasure"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="UnitOfMeasureLongName"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="UnitOfMeasureDimension"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="UnitOfMeasureDimensionName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="cds_zui_dev.cds_zui_dev_Entities/AddTimeSpent/TimeUnit" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String=""/>
+                        <PropertyValue Property="CollectionPath" String="I_UnitOfMeasureStdVH"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="TimeUnit"/>
+                                    <PropertyValue Property="ValueListProperty" String="UnitOfMeasure"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="UnitOfMeasureLongName"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="UnitOfMeasureDimension"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="UnitOfMeasureDimensionName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="cds_zui_dev.ZC_DevBookingType/TimeUnit" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String=""/>
+                        <PropertyValue Property="CollectionPath" String="I_UnitOfMeasureStdVH"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="TimeUnit"/>
+                                    <PropertyValue Property="ValueListProperty" String="UnitOfMeasure"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="UnitOfMeasureLongName"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="UnitOfMeasureDimension"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="UnitOfMeasureDimensionName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
             <Annotations Target="cds_zui_dev.cds_zui_dev_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
                 <Annotation Term="Aggregation.ApplySupported">
@@ -319,6 +529,9 @@
                         <PropertyValue Property="Rollup" EnumMember="None"/>
                     </Record>
                 </Annotation>
+            </Annotations>
+            <Annotations Target="cds_zui_dev.ZC_DevBookingType/BookingText" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
             </Annotations>
             <Annotations Target="cds_zui_dev.ZC_DevCommentType/CommentText" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
