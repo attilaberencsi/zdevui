@@ -14,6 +14,7 @@
     <edmx:DataServices>
         <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="cust.ca.devman">
             <Annotations Target="cds_zui_dev.ZC_DevType">
+                <!--Variants for Tabbed Display-->
                 <Annotation Term="UI.SelectionVariant" Qualifier="SVSpec">
                     <Record>
                         <PropertyValue Property="Text" String="{@i18n>underSpecification}">
@@ -57,7 +58,7 @@
                             </Collection>
                         </PropertyValue>
                     </Record>
-                </Annotation>     
+                </Annotation>
                 <Annotation Term="UI.SelectionVariant" Qualifier="SVDevelopmnt">
                     <Record>
                         <PropertyValue Property="Text" String="{@i18n>development}">
@@ -79,7 +80,7 @@
                             </Collection>
                         </PropertyValue>
                     </Record>
-                </Annotation>    
+                </Annotation>
                 <Annotation Term="UI.SelectionVariant" Qualifier="SVTest">
                     <Record>
                         <PropertyValue Property="Text" String="{@i18n>testing}">
@@ -101,8 +102,7 @@
                             </Collection>
                         </PropertyValue>
                     </Record>
-                </Annotation>          
-                                                                 
+                </Annotation>
                 <Annotation Term="UI.SelectionVariant" Qualifier="SVCorrection">
                     <Record>
                         <PropertyValue Property="Text" String="{@i18n>correction}">
@@ -168,8 +168,20 @@
                             </Collection>
                         </PropertyValue>
                     </Record>
-                </Annotation>                                                 
+                </Annotation>
             </Annotations>
+           <!--Refresh Worktime List after Adding Worktime in Dialog by dedicated action-->
+            <Annotations Target="cds_zui_dev.cds_zui_dev_Entities/AddTimeSpent">
+                <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="WorkTimeAdded">
+                    <Record>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>_it/to_Comment</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>         
         </Schema>
     </edmx:DataServices>
 </edmx:Edmx>

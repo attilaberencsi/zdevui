@@ -18,6 +18,7 @@
                 "uri": "/sap/opu/odata/sap/ZUI_DEV_O2/",
                 "type": "OData",
                 "settings": {
+                    "odataVersion": "2.0",
                     "annotations": [
                         "ZUI_DEV_O2_VAN",
                         "annotation"
@@ -30,14 +31,20 @@
                 "type": "ODataAnnotation",
                 "settings": {
                     "localUri": "localService/ZUI_DEV_O2_VAN.xml"
-                }
+                },
+                "isLocal": false,
+                "order": 1,
+                "isActive": true
             },
             "annotation": {
                 "type": "ODataAnnotation",
                 "uri": "annotations/annotation.xml",
                 "settings": {
                     "localUri": "annotations/annotation.xml"
-                }
+                },
+                "isLocal": true,
+                "order": 2,
+                "isActive": true
             }
         },
         "offline": false,
@@ -67,6 +74,7 @@
         ]
     },
     "sap.ui5": {
+        "flexEnabled": true,
         "resources": {
             "js": [],
             "css": []
@@ -112,6 +120,13 @@
                     "defaultCountMode": "Inline",
                     "refreshAfterChange": false
                 }
+            },
+            "mainService": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "defaultCountMode": "Inline"
+                }
             }
         },
         "extends": {
@@ -135,14 +150,7 @@
                             "ZC_Dev": {
                                 "EntitySet": "ZC_Dev",
                                 "Header": {
-                                    "Actions": {
-                                        "addComment": {
-                                            "id": "addCommentButton",
-                                            "text": "Add Comment",
-                                            "press": "onAddCommentZC_Dev",
-                                            "requiresSelection": false
-                                        }
-                                    }
+                                    "Actions": {}
                                 }
                             }
                         }

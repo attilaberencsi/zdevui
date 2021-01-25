@@ -88,6 +88,9 @@
             <Annotations Target="cds_zui_dev.ZC_DevType/LocalLastChangedAt">
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
+            <Annotations Target="cds_zui_dev.ZC_DevType/AddTimeSpent_ac">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
             <Annotations Target="cds_zui_dev.ZC_DevType/Edit_ac">
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
@@ -180,6 +183,14 @@
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="LastChangedAt"/>
                         </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="LocalLastChangedAt"/>
+                        </Record>
+                        <Record Type="UI.DataFieldForAction">
+                            <PropertyValue Property="Label" String="Add Worktime"/>
+                            <PropertyValue Property="Action" String="cds_zui_dev.cds_zui_dev_Entities/AddTimeSpent"/>
+                            <PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/Isolated"/>
+                        </Record>
                     </Collection>
                 </Annotation>
                 <Annotation Term="UI.LineItem">
@@ -213,6 +224,14 @@
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="OverallStatus"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="LocalLastChangedAt"/>
+                        </Record>
+                        <Record Type="UI.DataFieldForAction">
+                            <PropertyValue Property="Label" String="Add Worktime"/>
+                            <PropertyValue Property="Action" String="cds_zui_dev.cds_zui_dev_Entities/AddTimeSpent"/>
+                            <PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/Isolated"/>
                         </Record>
                     </Collection>
                 </Annotation>
@@ -332,6 +351,18 @@
                             <PropertyValue Property="Value" Path="CreatedAt"/>
                         </Record>
                     </Collection>
+                </Annotation>
+                <Annotation Term="UI.PresentationVariant">
+                    <Record>
+                        <PropertyValue Property="SortOrder">
+                            <Collection>
+                                <Record Type="Common.SortOrderType">
+                                    <PropertyValue Property="Property" PropertyPath="CommentCount"/>
+                                    <PropertyValue Property="Descending" Bool="true"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
                 </Annotation>
             </Annotations>
             <Annotations Target="_Entities">
