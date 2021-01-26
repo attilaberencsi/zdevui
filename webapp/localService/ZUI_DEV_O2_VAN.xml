@@ -113,11 +113,49 @@
                 <Annotation Term="UI.MultiLineText"/>
             </Annotations>
             <Annotations Target="cds_zui_dev.ZC_DevType">
-                <Annotation Term="UI.DataPoint" Qualifier="TimeSpent">
-                    <Record>
-                        <PropertyValue Property="Value" Path="TimeSpent"/>
-                        <PropertyValue Property="Title" String="Time Spent"/>
+                <Annotation Term="UI.Chart" Qualifier="chartProgress">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="Title" String="Progress"/>
+                        <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Donut"/>
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>ProgressPercentage</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="MeasureAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartMeasureAttributeType">
+                                    <PropertyValue Property="Measure" PropertyPath="ProgressPercentage"/>
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1"/>
+                                    <PropertyValue Property="DataPoint" AnnotationPath="@UI.DataPoint#ProgressPercentage"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
                     </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="ProgressPercentage">
+                    <Record>
+                        <PropertyValue Property="Value" Path="ProgressPercentage"/>
+                        <PropertyValue Property="Title" String="Progress %"/>
+                        <PropertyValue Property="CriticalityCalculation">
+                            <Record>
+                                <PropertyValue Property="ImprovementDirection" EnumMember="UI.ImprovementDirectionType/Target"/>
+                                <PropertyValue Property="DeviationRangeLowValue" Decimal="50"/>
+                                <PropertyValue Property="DeviationRangeHighValue" Decimal="125"/>
+                                <PropertyValue Property="ToleranceRangeLowValue" Decimal="75"/>
+                                <PropertyValue Property="ToleranceRangeHighValue" Decimal="100"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.HeaderFacets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Header"/>
+                            <PropertyValue Property="ID" String="idProgressColl"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.Chart#chartProgress"/>
+                        </Record>
+                    </Collection>
                 </Annotation>
                 <Annotation Term="UI.Facets">
                     <Collection>
@@ -300,8 +338,8 @@
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="TimePlanned"/>
                         </Record>
-                        <Record Type="UI.DataFieldForAnnotation">
-                            <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#TimeSpent"/>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="TimeSpent"/>
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="TimeLeft"/>
@@ -311,6 +349,10 @@
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="OverallStatus"/>
+                        </Record>
+                        <Record Type="UI.DataFieldForAnnotation">
+                            <PropertyValue Property="Label" String="Progress"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.Chart#chartProgress"/>
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="LocalLastChangedAt"/>
