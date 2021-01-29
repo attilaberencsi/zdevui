@@ -69,6 +69,7 @@
                 <Property Name="AddTimeSpent_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Edit_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Prepare_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="readStatistics_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Delete_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Update_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="to_Booking_oc" Type="Edm.Boolean" sap:label="Dynamic CbA-Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
@@ -111,6 +112,7 @@
                 <Property Name="BookingUuid" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="DevUuid" Type="Edm.Guid" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="BookCount" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="Number" sap:quickinfo="Comment Count" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ActivityDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Activity Date"/>
                 <Property Name="TimeSpent" Type="Edm.Decimal" Precision="6" Scale="2"/>
                 <Property Name="TimeUnit" Type="Edm.String" MaxLength="3" sap:label="Unit" sap:value-list="standard" sap:semantics="unit-of-measure"/>
                 <Property Name="BookingText" Type="Edm.String" MaxLength="512" sap:label="Comment"/>
@@ -155,6 +157,11 @@
             </EntityType>
             <ComplexType Name="DummyFunctionImportResult">
                 <Property Name="IsInvalid" Type="Edm.Boolean" sap:label="TRUE"/>
+            </ComplexType>
+            <ComplexType Name="ZAE_DevActionGetStatResult">
+                <Property Name="TimeSpentLastYear" Type="Edm.Decimal" Precision="6" Scale="2" sap:unit="TimeUnit"/>
+                <Property Name="TimeSpentThisYear" Type="Edm.Decimal" Precision="6" Scale="2" sap:unit="TimeUnit"/>
+                <Property Name="TimeUnit" Type="Edm.String" MaxLength="3" sap:label="Unit" sap:semantics="unit-of-measure"/>
             </ComplexType>
             <Association Name="assoc_54D1E66E51C9DF72E937008C41BF065E" sap:content-version="1">
                 <End Type="cds_zui_dev.ZC_DevBookingType" Multiplicity="1" Role="FromRole_assoc_54D1E66E51C9DF72E937008C41BF065E"/>
@@ -269,8 +276,9 @@
                 <FunctionImport Name="AddTimeSpent" ReturnType="cds_zui_dev.ZC_DevType" EntitySet="ZC_Dev" m:HttpMethod="POST" sap:action-for="cds_zui_dev.ZC_DevType" sap:applicable-path="AddTimeSpent_ac">
                     <Parameter Name="DevUuid" Type="Edm.Guid" Mode="In"/>
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In"/>
-                    <Parameter Name="TimeUnit" Type="Edm.String" Mode="In" MaxLength="3" Nullable="true" sap:value-list="standard"/>
+                    <Parameter Name="ActivityDate" Type="Edm.DateTime" Mode="In" Precision="0" Nullable="true" sap:display-format="Date"/>
                     <Parameter Name="TimeSpent" Type="Edm.Decimal" Mode="In" Precision="6" Scale="2" Nullable="true"/>
+                    <Parameter Name="TimeUnit" Type="Edm.String" Mode="In" MaxLength="3" Nullable="true" sap:value-list="standard"/>
                     <Parameter Name="BookingText" Type="Edm.String" Mode="In" Nullable="true"/>
                 </FunctionImport>
                 <FunctionImport Name="ZC_DevDiscard" ReturnType="cds_zui_dev.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="cds_zui_dev.ZC_DevType">
@@ -286,6 +294,7 @@
                     <Parameter Name="DevUuid" Type="Edm.Guid" Mode="In"/>
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In"/>
                 </FunctionImport>
+                <FunctionImport Name="readStatistics" ReturnType="cds_zui_dev.ZAE_DevActionGetStatResult" m:HttpMethod="POST"/>
             </EntityContainer>
             <Annotations Target="cds_zui_dev.cds_zui_dev_Entities/ZC_Dev" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.DraftRoot">
@@ -303,6 +312,7 @@
                                 <PropertyPath>AddTimeSpent_ac</PropertyPath>
                                 <PropertyPath>Edit_ac</PropertyPath>
                                 <PropertyPath>Prepare_ac</PropertyPath>
+                                <PropertyPath>readStatistics_ac</PropertyPath>
                                 <PropertyPath>Delete_mc</PropertyPath>
                                 <PropertyPath>Update_mc</PropertyPath>
                                 <PropertyPath>to_Booking_oc</PropertyPath>
@@ -350,6 +360,7 @@
                                 <PropertyPath>AddTimeSpent_ac</PropertyPath>
                                 <PropertyPath>Edit_ac</PropertyPath>
                                 <PropertyPath>Prepare_ac</PropertyPath>
+                                <PropertyPath>readStatistics_ac</PropertyPath>
                                 <PropertyPath>Delete_mc</PropertyPath>
                                 <PropertyPath>Update_mc</PropertyPath>
                                 <PropertyPath>to_Booking_oc</PropertyPath>

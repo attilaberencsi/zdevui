@@ -154,6 +154,23 @@
                                 }
                             }
                         }
+                    },
+                    "sap.suite.ui.generic.template.ListReport.view.ListReport": {
+                        "controllerName": "cust.ca.devman.zcadevman.ext.controller.ListReportExt",
+                        "sap.ui.generic.app": {
+                            "ZC_Dev": {
+                                "EntitySet": "ZC_Dev",
+                                "Actions": {
+                                    "showGlobalWorktimes": {
+                                        "id": "showGlobalWorktimesButton",
+                                        "text": "{{btnShowStatistics}}",
+                                        "press": "showGlobalWorktimesZC_Dev",
+                                        "requiresSelection": false,
+                                        "global": true
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
