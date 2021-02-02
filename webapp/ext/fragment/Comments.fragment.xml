@@ -7,6 +7,7 @@
         visible="{= !${IsActiveEntity}}"/>
 	<List id="idCommentList"
 		showSeparators="Inner"
+        noDataText="{i18n>NOITEMS_SMARTTABLE|ZC_Dev|Comments}"
         items="{
             path : 'to_Comment',
             sorter : {

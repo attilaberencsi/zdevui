@@ -22,13 +22,14 @@ sap.ui.controller("cust.ca.devman.zcadevman.ext.controller.ListReportExt", {
         }
     },
 
-/**
- * Statistics has been collected, display the results of action execution
- *
- * @param {*} oActionResult
- */
-showStatisticDialog: function(oActionResult) {
+    /**
+     * Statistics has been collected, display the results of action execution
+     *
+     * @param {*} oActionResult
+     */
+    showStatisticDialog: function (oActionResult) {
         var mStatistics = oActionResult[0].response.data.readStatistics;
-        sap.m.MessageToast.show("Days spent with development this year: " + mStatistics.TimeSpentThisYear.toString(), { duration: 5000  });
+        sap.m.MessageToast.show("Days spent with development this year: " + mStatistics.TimeSpentThisYear.toString(), { duration: 5000 });
     }
+    
 });
