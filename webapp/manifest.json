@@ -238,6 +238,9 @@
                                     "tableSettings": {}
                                 }
                             }
+                        },
+                        "dataLoadSettings": {
+                            "loadDataOnAppLaunch": "always"
                         }
                     }
                 },
@@ -251,7 +254,8 @@
                                 "sections": {
                                     "to_Comment::com.sap.vocabularies.UI.v1.LineItem": {
                                         "condensedTableLayout": false
-                                    }
+                                    },
+                                    "to_Booking::com.sap.vocabularies.UI.v1.LineItem": {}
                                 }
                             }
                         },
